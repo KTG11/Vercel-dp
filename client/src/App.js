@@ -1,12 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  // State to hold input data and a list of items
+  const [input, setInput] = useState("");
+  const [items, setItems] = useState([]);
+
+  // Handle input change
+  const handleInputChange = (event) => {
+    setInput(event.target.value);
+  };
+
+  // Handle adding new data
+  const addItem = () => {
+    if (input.trim() !== "") {
+      setItems([...items, input]);
+      setInput(""); // Clear input field after adding
+    }
+  };
+
   return (
-    <div>
-      <h1>Welcome to My React App</h1>
+    <div className="App">
+      <header className="App-header">
+        <h1>Data Entry App</h1>
+        {/* Input field to take in data */}
+        <input
+          type="text"
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Enter data..."
+        />
+        <button onClick={addItem}>Add</button>
+
+        {/* Display list of entered data */}
+        <ul>
+          {items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
+        </ul>
+      </header>
     </div>
   );
 }
 
 export default App;
-
