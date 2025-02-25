@@ -19,6 +19,13 @@ function App() {
     }
   };
 
+  // Handle key press (detects Enter key)
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      addItem();
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -28,6 +35,7 @@ function App() {
           type="text"
           value={input}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown} // Listen for Enter key press
           placeholder="Enter data..."
         />
         <button onClick={addItem}>Add</button>
