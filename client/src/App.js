@@ -36,6 +36,12 @@ function App() {
     }
   };
 
+  // Handle clearing all data
+  const clearAll = () => {
+    setItems([]); // Clear state
+    localStorage.removeItem("items"); // Clear localStorage
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -49,6 +55,9 @@ function App() {
           placeholder="Enter data..."
         />
         <button onClick={addItem}>Add</button>
+        <button onClick={clearAll} style={{ marginTop: "10px", background: "red", color: "white" }}>
+          Clear All
+        </button>
 
         {/* Display list of entered data */}
         <ul>
@@ -62,4 +71,3 @@ function App() {
 }
 
 export default App;
-
