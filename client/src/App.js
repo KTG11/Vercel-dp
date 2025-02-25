@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  // State to hold input data and a list of items
+  // Load saved items from localStorage or set to empty array
+  const [items, setItems] = useState(() => {
+    const savedItems = localStorage.getItem("items");
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
+
   const [input, setInput] = useState("");
-  const [items, setItems] = useState([]);
+
+  // Save items to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   // Handle input change
   const handleInputChange = (event) => {
@@ -14,8 +23,9 @@ function App() {
   // Handle adding new data
   const addItem = () => {
     if (input.trim() !== "") {
-      setItems([...items, input]);
-      setInput(""); // Clear input field after adding
+      const updatedItems = [...items, input];
+      setItems(updatedItems);
+      setInput(""); // Clear input field
     }
   };
 
@@ -29,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Data Entry App</h1>
+        <h1>Persistent Data Entry App</h1>
         {/* Input field to take in data */}
         <input
           type="text"
@@ -52,3 +62,4 @@ function App() {
 }
 
 export default App;
+
